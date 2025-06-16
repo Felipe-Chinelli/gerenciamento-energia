@@ -1,0 +1,38 @@
+   <!DOCTYPE html>
+   <html lang="pt-BR">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Energy Management</title>
+   </head>
+   <body>
+       <h1>Gerenciamento de Energia</h1>
+<h2>Cadastrar Consumo Mensal de Energia</h2>
+<form action="/set_user_energy" method="POST">
+    <input type="number" name="monthly_consumption" placeholder="Consumo Mensal (kWh)" required step="0.01">
+    <button type="submit">Cadastrar Consumo</button>
+</form>
+<h2>Cadastrar Dispositivo</h2>
+<form action="/add_device" method="POST">
+    <input type="text" name="name" placeholder="Nome do dispositivo" required>
+    <input type="number" name="importance" placeholder="Importância (0-3)" required min="0" max="3">
+    <button type="submit">Adicionar</button>
+</form>
+<h2>Dispositivos Cadastrados</h2>
+<ul>
+    {% for device in devices %}
+        <li>
+            {{ device[1] }} - Importância: {{ device[2] }}
+            <form action="/delete_device/{{ device[0] }}" method="POST" style="display:inline;">
+                <button type="submit">Deletar</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+       <h2>Status de Energia</h2>
+       <a href="/energy_status">Ver Status de Energia</a>
+   </body>
+   </html>
+
+
+
